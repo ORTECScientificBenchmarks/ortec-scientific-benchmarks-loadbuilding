@@ -1,0 +1,10 @@
+graft src\ortec\scientific\benchmarks\loadbuilding\resources
+
+include README.rst
+include CHANGELOG.rst
+include LICENSE.rst
+include Viewer.png
+
+global-exclude *.py[cod] __pycache__ 
+prune dist
+prune .git

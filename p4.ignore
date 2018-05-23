@@ -1,0 +1,12 @@
+# directories
+__pycache__/
+dist/
+build/
+.git/
+htmlcov/
+.eggs/
+*.egg-info/
+
+# files
+*.pyc
+.coverage*
