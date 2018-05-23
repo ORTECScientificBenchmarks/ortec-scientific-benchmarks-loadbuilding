@@ -1,0 +1,28 @@
+description:
+  set: 'Container'
+  name: 'Test'
+layout:
+  containers:
+  - id: 1
+    kindid: 1
+    loadingspaces:
+    - id: 1
+      placements:
+      - id: 1
+        itemid: 1
+        position: 0,0,0
+        orientation: 'LWH'
+      - id: 2
+        itemid: 1
+        position: 0,0,500
+        orientation: 'LWH'
+      - id: 3
+        itemid: 1
+        position: 0,500,0
+        orientation: 'LWH'
+  pallets: []
+  boxes: []
+  unplaced:
+  - id: 4
+    itemid: 1
+    quantity: 1

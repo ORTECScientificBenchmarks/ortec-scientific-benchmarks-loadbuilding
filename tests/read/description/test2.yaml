@@ -1,0 +1,9 @@
+description:
+  name: 'Test'
+constraints: []
+objectives: []
+data:
+  containerkinds: []
+  palletkinds: []
+  boxkinds: [] 
+  itemkinds: []

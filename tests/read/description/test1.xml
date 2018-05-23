@@ -1,0 +1,14 @@
+<instance>
+	<description>
+		<set>Description</set>
+		<name>Test</name>
+	</description>
+	<constraints />
+	<objectives />
+	<data>
+		<containerkinds />
+		<palletkinds />
+		<boxkinds />
+		<itemkinds />
+	</data>
+</instance>

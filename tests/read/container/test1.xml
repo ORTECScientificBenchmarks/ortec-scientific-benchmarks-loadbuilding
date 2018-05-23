@@ -1,0 +1,33 @@
+<solution>
+    <description>
+        <set>Container</set>
+        <name>Test</name>
+    </description>
+    <layout>
+        <containers>
+            <container id="1" kindid="1">
+                <loadingspaces>
+                    <loadingspace id="1">
+                        <placements>
+                            <placement itemid="1" id="1">
+                                <position>0,0,0</position>
+                                <orientation>LWH</orientation>
+                            </placement>
+                            <placement itemid="1" id="2">
+                                <position>0,0,500</position>
+                                <orientation>LWH</orientation>
+                            </placement>
+                            <placement itemid="1" id="3">
+                                <position>0,500,0</position>
+                                <orientation>LWH</orientation>
+                            </placement>
+                        </placements>
+                    </loadingspace>
+                </loadingspaces>
+            </container>
+        </containers>
+        <unplaced>
+            <placement itemid="1" id="4" quantity="1" />
+        </unplaced>
+    </layout>
+</solution>

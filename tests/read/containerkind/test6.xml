@@ -1,0 +1,49 @@
+<instance>
+	<description>
+		<set>Containerkind</set>
+		<name>Test</name>
+	</description>
+	<constraints />
+	<objectives />
+	<data>
+		<containerkinds>
+			<containerkind id="1">
+				<quantity>1</quantity>
+				<loadingspaces>
+					<loadingspace>
+                        <position>0,0,0</position>
+                        <size>
+							<length>2000</length>
+							<width>1000</width>
+							<height>1000</height>
+						</size>
+					</loadingspace>
+                    <loadingspace id="2">
+                        <position>2000,0,0</position>
+                        <size>
+                            <length>2000</length>
+                            <width>1000</width>
+                            <height>1000</height>
+                        </size>
+                    </loadingspace>
+				</loadingspaces>
+			</containerkind>
+			<containerkind id="2">
+				<quantity>9999</quantity>
+				<loadingspaces>
+					<loadingspace id="1">
+                        <position>0,0,0</position>
+                        <size>
+							<length>1000</length>
+							<width>500</width>
+							<height>500</height>
+						</size>
+					</loadingspace>
+				</loadingspaces>
+			</containerkind>
+		</containerkinds>
+		<palletkinds />
+		<boxkinds />
+		<itemkinds />
+	</data>
+</instance>

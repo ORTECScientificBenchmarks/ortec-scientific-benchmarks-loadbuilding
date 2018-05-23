@@ -1,0 +1,13 @@
+<instance>
+	<description>
+		<set>Description</set>
+	</description>
+	<constraints />
+	<objectives />
+	<data>
+		<containerkinds />
+		<palletkinds />
+		<boxkinds />
+		<itemkinds />
+	</data>
+</instance>

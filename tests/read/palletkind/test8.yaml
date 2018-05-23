@@ -1,0 +1,39 @@
+description:
+  set: Palletkind
+  name: Test
+constraints: []
+objectives: []
+data:
+  containerkinds: []
+  palletkinds:
+  - id: 1
+    quantity: 1
+    size:
+      length: 1000
+      width: 1000
+    position: 0,0,0
+    loadingspace:
+      id: 1
+      size:
+        length: 1000
+        width: 1000
+        height: 1500
+      position: 0,0,10
+    orientations: WLH,LWH
+  - id: 2
+    quantity: 9999
+    size:
+      length: 1000
+      width: 1000
+      height: 100
+    position: 0,0,0
+    loadingspace:
+      id: 1
+      size:
+        length: 1000
+        width: 1000
+        height: 1000
+      position: 0,0,100
+    orientations: WLH,LWH
+  boxkinds: []
+  itemkinds: []

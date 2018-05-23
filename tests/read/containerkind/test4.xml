@@ -1,0 +1,31 @@
+<instance>
+	<description>
+		<set>Containerkind</set>
+		<name>Test</name>
+	</description>
+	<constraints />
+	<objectives />
+	<data>
+		<containerkinds>
+			<containerkind id="1">
+				<quantity>1</quantity>
+			</containerkind>
+			<containerkind id="2">
+				<quantity>9999</quantity>
+				<loadingspaces>
+					<loadingspace id="1">
+                        <position>0,0,0</position>
+                        <size>
+							<length>1000</length>
+							<width>500</width>
+							<height>500</height>
+						</size>
+					</loadingspace>
+				</loadingspaces>
+			</containerkind>
+		</containerkinds>
+		<palletkinds />
+		<boxkinds />
+		<itemkinds />
+	</data>
+</instance>

@@ -1,0 +1,21 @@
+description:
+  set: 'Containerkind'
+  name: 'Test'
+constraints: []
+objectives: []
+data:
+  containerkinds:
+  - id: 1
+    quantity: 1
+  - id: 2
+    quantity: 9999
+    loadingspaces:
+    - id: 1
+      position: 0,0,0
+      size:
+        length: 1000
+        width: 500
+        height: 500
+  palletkinds: []
+  boxkinds: []
+  itemkinds: []

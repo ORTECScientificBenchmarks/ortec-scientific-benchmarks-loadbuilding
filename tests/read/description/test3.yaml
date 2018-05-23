@@ -1,0 +1,9 @@
+description:
+  set: 'Description'
+constraints: []
+objectives: []
+data:
+  containerkinds: []
+  palletkinds: []
+  boxkinds: [] 
+  itemkinds: []
