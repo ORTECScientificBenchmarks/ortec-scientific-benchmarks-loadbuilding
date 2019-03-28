@@ -75,7 +75,7 @@ class LoadbuildInstance(object):
         self.lbInstance.description.name = instancename
 
 def main(args=None):
-    parser = argparse.ArgumentParser(description='Convert loadbuilding instances')
+    parser = argparse.ArgumentParser(description='Convert and check loadbuilding instances')
     parser.add_argument('--input', '-I', metavar='INPUT_FILE', required=True, help='The input file')
     parser.add_argument('--type', '-t', metavar='TYPE', choices=['json', 'yaml', 'xml', 'ortec'], help='The type of the input file, choose one of: json, xml, yaml')
     parser.add_argument('--output', '-O', metavar='OUTPUT_FILE', help='The output file basename, extension is set by output type')

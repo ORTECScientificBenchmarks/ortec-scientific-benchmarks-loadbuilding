@@ -1,7 +1,6 @@
 def colorcode(r,g,b,a):
     return '#%02x%02x%02x%02x' % r,g,b,a
 
-import vpython
 import os
 import argparse
 from distutils.version import LooseVersion
@@ -27,6 +26,7 @@ def main(args=None):
     parser.add_argument('--opacity',      '-O',  metavar='OPACITY',       required=False,                          help='The default opacity')
     args = parser.parse_args(args)
 
+    import vpython
     if args.instancetype is None:
         filename = args.instance
         _, file_extension = os.path.splitext(filename)

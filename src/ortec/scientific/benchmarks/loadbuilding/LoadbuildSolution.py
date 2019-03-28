@@ -82,11 +82,11 @@ class LoadbuildSolution(object):
         self.lbSolution.threeDinstance.description.name = instancename
 
 def main(args=None):
-    parser = argparse.ArgumentParser(description='Convert loadbuilding solutions')
+    parser = argparse.ArgumentParser(description='Convert and check loadbuilding solutions')
     parser.add_argument('--instance',     '-I',  metavar='INPUT_FILE',    required=True,                   help='The instance file')
-    parser.add_argument('--instancetype', '-IT', metavar='INSTANCE_TYPE', choices=['json', 'yaml', 'xml'], help='The type of the instance file')
+    parser.add_argument('--instancetype', '-IT', metavar='INSTANCE_TYPE', choices=['json', 'yaml', 'xml'], help='The type of the instance file, choose one of: json, xml, yaml')
     parser.add_argument('--solution',     '-S',  metavar='SOLUTION_FILE', required=True,                   help='The solution file')
-    parser.add_argument('--solutiontype', '-ST', metavar='SOLUTION_TYPE', choices=['json', 'yaml', 'xml'], help='The type of the solution file')
+    parser.add_argument('--solutiontype', '-ST', metavar='SOLUTION_TYPE', choices=['json', 'yaml', 'xml'], help='The type of the solution file, choose one of: json, xml, yaml')
     parser.add_argument('--output', '-O', metavar='OUTPUT_FILE', help='The output file basename, extension is set by output type')
     parser.add_argument('--xml', '-X', action='store_true',  help='Create xml file')
     parser.add_argument('--yaml', '-Y', action='store_true', help='Create yaml file')
