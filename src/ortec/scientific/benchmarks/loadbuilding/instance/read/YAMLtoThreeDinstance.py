@@ -7,9 +7,9 @@ class YAMLtoThreeDinstance(BaseToThreeDinstance):
     def safeFindRoot(filename="", text=""):
         if filename:
             with open(filename) as fd:
-                return yaml.load(fd)
+                return yaml.full_load(fd)
         if text:
-            return yaml.load(text)
+            return yaml.full_load(text)
     
     @staticmethod
     def safeFindOne(yaml, tag):
