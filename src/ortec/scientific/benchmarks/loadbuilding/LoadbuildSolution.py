@@ -122,7 +122,8 @@ def main(args=None):
         outputTypes.append('yaml')
     converter.CreateSolution(args.output,outputTypes)
     if not outputTypes:
-        converter.lbSolution.PrintResults()
+        result = converter.lbSolution.GetResults()
+        result.PrintResults()
 
 if __name__=="__main__":
     exit("Don't run this file")

@@ -445,28 +445,47 @@ class ThreeDsolution(object):
             new_constraint["valid"], new_constraint["warnings"] = constraint.constraint.Validate(self)
             result.append(new_constraint)
         return result
-
-    def PrintResults(self):
-        result = self.GetResults()
-        if result["validity"]["value"]:
-            valid = True
-            print("Solution of '%s':" % (self.description.InstanceName()) )
-            for constraint in result["constraints"]:
-                valid = valid and constraint["valid"]
-                print(constraint["warnings"])
-            value = result["objectives"]["total"]
-            print("Objective = " + str(value))
-        else:
-            print(result["validity"]["warnings"])
-
+    
     def GetResults(self):
-        result = {}
-        result["validity"] = {}
-        result["validity"]["value"], result["validity"]["warnings"] = self.IsValid()
-        if result["validity"]["value"]:
-            result["constraints"] = self.ValidateConstraints()
-            result["objectives"]  = self.EvaluateObjectives()
-        return result
+        return self.ValidationResult(self)
+    
+    class ValidationResult(object):
+        def __init__(self,threeDsolution):
+            self.instanceName = threeDsolution.description.InstanceName()
+            self.validity = dict()
+            self.validity["value"], self.validity["warnings"] = threeDsolution.IsValid()
+            if self.validity["value"]:
+                self.constraints = threeDsolution.ValidateConstraints()
+                self.objectives  = threeDsolution.EvaluateObjectives()
+        
+        def SolutionFormatIsValid(self):
+            return self.validity["value"]
+        
+        def SolutionIsValid(self):
+            valid = False
+            if self.SolutionFormatIsValid():
+                valid = True
+                for constraint in self.constraints:
+                    valid = valid and constraint["valid"]
+            return valid
+        
+        def GetObjective(self):
+            value = list()
+            if self.SolutionFormatIsValid():
+                value = self.objectives["total"]
+            return value
+        
+        def PrintResults(self):
+            if self.SolutionFormatIsValid():
+                valid = True
+                print("Solution of '%s':" % (self.instanceName) )
+                for constraint in self.constraints:
+                    print(constraint["warnings"])
+                value = self.GetObjective()
+                print("Solution is " + ("valid" if self.SolutionIsValid() else "invalid"))
+                print("Objective = " + str(value))
+            else:
+                print(self.validity["warnings"])
     
 if __name__=="__main__":
     exit("Don't run this file")
