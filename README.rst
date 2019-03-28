@@ -11,7 +11,7 @@ This package is specific for the loadbuilding benchmark instances and provides i
 
   * File-type Conversion tool
   * Data Validity Checking tool
-  * Find Appliccable Constraints and Objectives tool
+  * Find Applicable Constraints and Objectives tool
   
 * Solution
 
