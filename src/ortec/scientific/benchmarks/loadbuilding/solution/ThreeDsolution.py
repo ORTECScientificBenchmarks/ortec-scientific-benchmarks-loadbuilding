@@ -1,6 +1,6 @@
 from ..common.Requirements import BaseRequirement, ExistenceRequirement
 from ..common.NgoiMatrix import NgoiMatrix
-from ..common.utils import key, Report, checkDuplicateIds
+from ..common.utils import key, Report, checkDuplicateIds, Orientation
 from operator import le, eq
 
 from ..instance.ThreeDdescription import ThreeDdescription
@@ -315,11 +315,7 @@ class ThreeDsolution(object):
                     break
         if placement.boundingBox is not None and placement.boundingBox != 'UNPLACED' and\
            placement.orientation is not None and placement.orientation != 'UNPLACED':
-            l_index = placement.orientation.upper().find("L")
-            w_index = placement.orientation.upper().find("W")
-            h_index = placement.orientation.upper().find("H")
-            permutation = [l_index, w_index, h_index]
-            placement.boundingBox = [placement.boundingBox[i] for i in permutation]
+            placement.boundingBox = Orientation.Rotate(placement.boundingBox, placement.orientation)
             
     # Will attempt to 'decorate' the solution by adding instance fields to the solution object, such as bounding boxes, orientations, etc.
     def DecorateSolution(self):

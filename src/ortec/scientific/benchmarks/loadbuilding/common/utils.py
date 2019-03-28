@@ -107,5 +107,10 @@ class Orientation:
         symbol = "LWH"[index]
         return symbol.upper() if (orientation[index].isupper() == side.isupper()) else symbol.lower()
         
+    @staticmethod
+    def Rotate(box, orientation):
+        mask = {'L': 0, 'W': 1, 'H': 2}
+        return [box[mask[o]] for o in orientation.upper()]
+        
 if __name__=="__main__":
     exit("Don't run this file")
