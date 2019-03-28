@@ -252,7 +252,7 @@ class ThreeDsolution(object):
                     loadingspace.ngoi.addCuboid(placement)
 
     # TODO: decorate box + pallet
-    def DecoratePlacement(self, placement):
+    def DecoratePlacement(self, placement, Do = True):
         placement.correct      = True
         placement.boundingBox  = None
         placement.orientations = None
@@ -284,34 +284,35 @@ class ThreeDsolution(object):
                         setattr(placement, field, getattr(boxkind, field))
                 break
         else:
-            # TODO: test
-            placement.type = "pallet"
-            placement.kindid = None
-            for pallet in self.pallets:
-                if pallet.id == placement.palletid:
-                    placement.kindid       = pallet.kindid
-                    placement.loadingspace = pallet.loadingspace
-            for palletkind in self.threeDinstance.palletkinds:
-                if palletkind.id != placement.kindid:
-                    continue
-                placement.orientations = palletkind.orientations
-                for field in self.palletkindFields:
-                    if hasattr(palletkind, field):
-                        setattr(placement, field, getattr(palletkind, field))
-                pallet_min = list(palletkind.position)
-                pallet_max = list(map(sum,zip(pallet_min, palletkind.boundingBox)))
-                placements_min = list(map(min,zip(*map(lambda x: x.position,               palletkind.loadingspace.placements))))
-                placements_max = list(map(max,zip(*map(lambda x: x.position+x.boundingBox, palletkind.loadingspace.placements))))
-                loadingspace_min = list(map(sum,zip(palletkind.loadingspace.position, placements_min)))
-                loadingspace_max = list(map(sum,zip(palletkind.loadingspace.position, placements_max)))
-                
-                min_coords = list(map(min,zip(pallet_min,loadingspace_min)))
-                max_coords = list(map(max,zip(pallet_max,loadingspace_max)))
-                max_coords = list(map(lambda x: x[0]-x[1], zip(max_coords, min_coords)))
-
-                placement.position    = list(map(sum, zip(placement.position, min_coords)))
-                placement.boundingBox = list(map(sum, zip(placement.position, max_coords)))
-                break
+            if Do:
+                # TODO: test
+                placement.type = "pallet"
+                placement.kindid = None
+                for pallet in self.pallets:
+                    if pallet.id == placement.palletid:
+                        placement.kindid       = pallet.kindid
+                        placement.loadingspace = pallet.loadingspace
+                for palletkind in self.threeDinstance.palletkinds:
+                    if palletkind.id != placement.kindid:
+                        continue
+                    placement.orientations = palletkind.orientations
+                    for field in self.palletkindFields:
+                        if hasattr(palletkind, field):
+                            setattr(placement, field, getattr(palletkind, field))
+                    pallet_min = list(palletkind.position)
+                    pallet_max = list(map(sum,zip(pallet_min, palletkind.boundingBox)))
+                    placements_min = list(map(min,zip(*map(lambda x: x.position,               placement.loadingspace.placements))))
+                    placements_max = list(map(max,zip(*map(lambda x: list(map(sum,zip(x.position,x.boundingBox))), placement.loadingspace.placements))))
+                    loadingspace_min = list(map(sum,zip(placement.loadingspace.position, placements_min)))
+                    loadingspace_max = list(map(sum,zip(placement.loadingspace.position, placements_max)))
+                    
+                    min_coords = list(map(min,zip(pallet_min,loadingspace_min)))
+                    max_coords = list(map(max,zip(pallet_max,loadingspace_max)))
+                    max_coords = list(map(lambda x: x[0]-x[1], zip(max_coords, min_coords)))
+                    
+                    placement.position    = list(map(sum, zip(placement.position, min_coords)))
+                    placement.boundingBox = list(map(sum, zip(placement.position, max_coords)))
+                    break
         if placement.boundingBox is not None and placement.boundingBox != 'UNPLACED' and\
            placement.orientation is not None and placement.orientation != 'UNPLACED':
             l_index = placement.orientation.upper().find("L")
@@ -334,6 +335,34 @@ class ThreeDsolution(object):
                 self.boxkindFields       |= set([req.field for req in r.boxkindRequirements       if isinstance(req, ExistenceRequirement)])
                 self.itemkindFields      |= set([req.field for req in r.itemkindRequirements      if isinstance(req, ExistenceRequirement)])
                 self.loadingspaceFields  |= set([req.field for req in r.loadingspaceRequirements  if isinstance(req, ExistenceRequirement)])
+            for box in self.boxes:
+                for boxkind in self.threeDinstance.boxkinds:
+                    if boxkind.id != box.kindid:
+                        continue
+                    box.loadingspace.boundingBox = boxkind.loadingspace.boundingBox
+                    box.loadingspace.position    = boxkind.loadingspace.position
+                    for field in self.loadingspaceFields:
+                        setattr(box.loadingspace, field, getattr(boxkind.loadingspace, field))
+                    for field in self.boxkindFields:
+                        setattr(box, field, getattr(boxkind, field))
+                    break
+                for placement in box.loadingspace.placements:
+                    self.DecoratePlacement(placement)
+                self.DecorateLoadingspace(box.loadingspace)
+            for pallet in self.pallets:
+                for palletkind in self.threeDinstance.palletkinds:
+                    if palletkind.id != pallet.kindid:
+                        continue
+                    pallet.loadingspace.boundingBox = palletkind.loadingspace.boundingBox
+                    pallet.loadingspace.position    = palletkind.loadingspace.position
+                    for field in self.loadingspaceFields:
+                        setattr(pallet.loadingspace, field, getattr(palletkind.loadingspace, field))
+                    for field in self.palletkindFields:
+                        setattr(pallet, field, getattr(palletkind, field))
+                    break
+                for placement in pallet.loadingspace.placements:
+                    self.DecoratePlacement(placement)
+                self.DecorateLoadingspace(pallet.loadingspace)
             for container in self.containers:
                 for containerkind in self.threeDinstance.containerkinds:
                     if containerkind.id != container.kindid:
@@ -353,36 +382,8 @@ class ThreeDsolution(object):
                     for field in self.containerkindFields:
                         setattr(container, field, getattr(containerkind, field))
                     break
-            for pallet in self.pallets:
-                for palletkind in self.threeDinstance.palletkinds:
-                    if palletkind.id != pallet.kindid:
-                        continue
-                    pallet.loadingspace.boundingBox = palletkind.loadingspace.boundingBox
-                    pallet.loadingspace.position    = palletkind.loadingspace.position
-                    for field in self.loadingspaceFields:
-                        setattr(pallet.loadingspace, field, getattr(palletkind.loadingspace, field))
-                    for field in self.palletkindFields:
-                        setattr(pallet, field, getattr(palletkind, field))
-                    break
-                for placement in pallet.loadingspace.placements:
-                    self.DecoratePlacement(placement)
-                self.DecorateLoadingspace(pallet.loadingspace)
-            for box in self.boxes:
-                for boxkind in self.threeDinstance.boxkinds:
-                    if boxkind.id != box.kindid:
-                        continue
-                    box.loadingspace.boundingBox = boxkind.loadingspace.boundingBox
-                    box.loadingspace.position    = boxkind.loadingspace.position
-                    for field in self.loadingspaceFields:
-                        setattr(box.loadingspace, field, getattr(boxkind.loadingspace, field))
-                    for field in self.boxkindFields:
-                        setattr(box, field, getattr(boxkind, field))
-                    break
-                for placement in box.loadingspace.placements:
-                    self.DecoratePlacement(placement)
-                self.DecorateLoadingspace(box.loadingspace)
             for placement in self.unplaced:
-                self.DecoratePlacement(placement)
+                self.DecoratePlacement(placement,False)
             self.decorated = True
 
     def CheckOverlapInside(self):
