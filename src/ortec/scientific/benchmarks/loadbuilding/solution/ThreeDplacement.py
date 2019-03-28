@@ -60,7 +60,7 @@ class ThreeDplacement(object):
         
     def GetCOG(self):
         if self.type == "item":
-            return list(map(lambda x: x[0] + x[1]/2, zip(self.position, self.boundingBox)))
+            return list(map(lambda x: x[0] + x[1]/2, zip(self.position, self.boundingBox))), self.weight
         else:
             final_cog    = list(map(lambda x: self.weight*(x[0] + x[1]/2), zip(self.position, self.boundingBox)))
             final_weight = self.weight
