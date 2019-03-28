@@ -1,5 +1,5 @@
 import yaml
-from ...collections import OrderedDict
+from collections import OrderedDict
 from .ThreeDsolutionToBase import ThreeDsolutionToBase
 
 def represent_unsortableordereddict(dumper, mapping, flow_style=None):

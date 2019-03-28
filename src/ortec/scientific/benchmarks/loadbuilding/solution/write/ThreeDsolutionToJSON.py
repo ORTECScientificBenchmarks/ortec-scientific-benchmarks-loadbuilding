@@ -1,5 +1,5 @@
 import json
-from ...collections import OrderedDict
+from collections import OrderedDict
 from .ThreeDsolutionToBase import ThreeDsolutionToBase
 
 class ThreeDsolutionToJSON(ThreeDsolutionToBase):
