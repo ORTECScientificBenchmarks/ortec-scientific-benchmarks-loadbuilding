@@ -5,6 +5,7 @@ import os
 import argparse
 from distutils.version import LooseVersion
 from . import LoadbuildSolution
+import base64
 
 def placement_to_box(placement):
     x0,y0,z0 = placement[0]
@@ -14,7 +15,10 @@ def placement_to_box(placement):
     return ((xc,zc,-yc),(l,h,w))
     
 def getresource(name):
-    return os.path.join(os.path.abspath(os.path.dirname(__file__)),'resources',name)
+    filename = os.path.join(os.path.abspath(os.path.dirname(__file__)),'resources',name)
+    with open(filename, "rb") as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    return "data:image/png;base64," + encoded_string.decode()
 
 def main(args=None):
     parser = argparse.ArgumentParser(description='Visualize loadbuilding solutions')
@@ -128,16 +132,10 @@ def main(args=None):
     ctrl   = button("Ctrl")
     alt    = button("Alt")
     option = button("&#x2325; Option")
-    if LooseVersion(vpython.__version__) > LooseVersion("7.4.4"):
-        l_drag = button(bgimage=getresource("left.png"))
-        r_drag = button(bgimage=getresource("right.png"))
-        b_drag = button(bgimage=getresource("both.png"))
-        m_drag = button(bgimage=getresource("middle.png"))
-    else:
-        l_drag = button("left mouse button")
-        r_drag = button("right mouse button")
-        b_drag = button("left+right mouse button")
-        m_drag = button("middle mouse button")
+    l_drag = button(bgimage=getresource("left.png"))
+    r_drag = button(bgimage=getresource("right.png"))
+    b_drag = button(bgimage=getresource("both.png"))
+    m_drag = button(bgimage=getresource("middle.png"))
     for container in converter.lbSolution.containers:
         for n,loadingspace in enumerate(container.loadingspaces):
             render(container, loadingspace, n)
